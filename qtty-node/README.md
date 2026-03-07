@@ -30,13 +30,13 @@ const { Quantity, DerivedQuantity, convert } = require('@siderust/qtty');
 const distance = new Quantity(1000, 'Meter');
 const km = distance.to('Kilometer');
 console.log(km.value); // 1
-console.log(km.unit);  // "Kilometer"
+console.log(km.unit); // "Kilometer"
 
 // Arithmetic with automatic unit conversion
 const a = new Quantity(1, 'Kilometer');
 const b = new Quantity(500, 'Meter');
-const total = a.add(b);          // 1.5 km
-const doubled = total.mul(2);    // 3.0 km
+const total = a.add(b); // 1.5 km
+const doubled = total.mul(2); // 3.0 km
 
 // Derived (compound) quantities
 const velocity = new DerivedQuantity(100, 'Meter', 'Second');
@@ -54,8 +54,8 @@ Import named unit factory functions to create quantities without typing
 
 ```js
 // Both lines produce the same Quantity:
-const a = Degrees(180);                     // factory style
-const b = new Quantity(180, 'Degree');      // class style
+const a = Degrees(180); // factory style
+const b = new Quantity(180, 'Degree'); // class style
 
 // Works for any dimension:
 const dist = Kilometers(1000);
@@ -114,13 +114,13 @@ const rad: Quantity = q.to('Radian');
 console.log(rad.value); // 3.141592653589793
 
 // Using factories
-const angle: Quantity = Degrees(180);   // identical result
+const angle: Quantity = Degrees(180); // identical result
 const speed: Quantity = Kilometers(100).div(Hours(1).value);
 
 // Type of a factory
 const f: UnitFactory = Degrees;
-console.log(f.unit);      // 'Degree'
-console.log(f.symbol);    // '°'
+console.log(f.unit); // 'Degree'
+console.log(f.symbol); // '°'
 console.log(f.dimension); // 'Angle'
 
 const ok: boolean = isCompatible('Meter', 'Kilometer'); // true
@@ -130,48 +130,48 @@ const ok: boolean = isCompatible('Meter', 'Kilometer'); // true
 
 ### `Quantity`
 
-| Member | Description |
-|--------|-------------|
-| `new Quantity(value, unit)` | Create a quantity. Unit is a string like `"Meter"`. |
-| `.value` | The numeric value (getter). |
-| `.unit` | The unit name (getter). |
-| `.symbol` | The unit symbol, e.g. `"m"` (getter). |
-| `.dimension` | The dimension name, e.g. `"Length"` (getter). |
-| `.to(unit)` | Convert to another unit. Throws on dimension mismatch. |
-| `.add(other)` | Add another quantity (same dimension). |
-| `.sub(other)` | Subtract another quantity (same dimension). |
-| `.mul(scalar)` | Multiply by a number. |
-| `.div(scalar)` | Divide by a number. |
-| `.neg()` | Negate. |
-| `.compatible(other)` | Check dimension compatibility. |
-| `.format(precision?)` | Format as string, e.g. `"1000 m"`. |
-| `.toJson()` | Return `{ value, unit }` plain object. |
-| `.toString()` | Same as `.format()`. |
+| Member                      | Description                                            |
+| --------------------------- | ------------------------------------------------------ |
+| `new Quantity(value, unit)` | Create a quantity. Unit is a string like `"Meter"`.    |
+| `.value`                    | The numeric value (getter).                            |
+| `.unit`                     | The unit name (getter).                                |
+| `.symbol`                   | The unit symbol, e.g. `"m"` (getter).                  |
+| `.dimension`                | The dimension name, e.g. `"Length"` (getter).          |
+| `.to(unit)`                 | Convert to another unit. Throws on dimension mismatch. |
+| `.add(other)`               | Add another quantity (same dimension).                 |
+| `.sub(other)`               | Subtract another quantity (same dimension).            |
+| `.mul(scalar)`              | Multiply by a number.                                  |
+| `.div(scalar)`              | Divide by a number.                                    |
+| `.neg()`                    | Negate.                                                |
+| `.compatible(other)`        | Check dimension compatibility.                         |
+| `.format(precision?)`       | Format as string, e.g. `"1000 m"`.                     |
+| `.toJson()`                 | Return `{ value, unit }` plain object.                 |
+| `.toString()`               | Same as `.format()`.                                   |
 
 ### `DerivedQuantity`
 
-| Member | Description |
-|--------|-------------|
-| `new DerivedQuantity(value, num, den)` | Create a compound quantity (e.g. m/s). |
-| `.value` | Numeric value. |
-| `.numerator` / `.denominator` | Unit names. |
-| `.symbol` | Compound symbol, e.g. `"m/s"`. |
-| `.to(num, den)` | Convert to different units. |
-| `.mul(scalar)` / `.div(scalar)` / `.neg()` | Arithmetic. |
-| `.format(precision?)` / `.toString()` | Formatting. |
-| `.toJson()` | Return `{ value, numerator, denominator }`. |
+| Member                                     | Description                                 |
+| ------------------------------------------ | ------------------------------------------- |
+| `new DerivedQuantity(value, num, den)`     | Create a compound quantity (e.g. m/s).      |
+| `.value`                                   | Numeric value.                              |
+| `.numerator` / `.denominator`              | Unit names.                                 |
+| `.symbol`                                  | Compound symbol, e.g. `"m/s"`.              |
+| `.to(num, den)`                            | Convert to different units.                 |
+| `.mul(scalar)` / `.div(scalar)` / `.neg()` | Arithmetic.                                 |
+| `.format(precision?)` / `.toString()`      | Formatting.                                 |
+| `.toJson()`                                | Return `{ value, numerator, denominator }`. |
 
 ### Free functions
 
-| Function | Description |
-|----------|-------------|
-| `convert(value, from, to)` | Convert a bare number between units. |
-| `isCompatible(unitA, unitB)` | Check if two units share a dimension. |
-| `unitDimension(unit)` | Get the dimension name for a unit. |
-| `unitSymbol(unit)` | Get the symbol for a unit. |
-| `isValidUnit(unit)` | Check if a unit name is recognized. |
-| `listUnits()` | Return all registered units as `{ name, symbol, dimension }[]`. |
-| `ffiVersion()` | FFI ABI version number. |
+| Function                     | Description                                                     |
+| ---------------------------- | --------------------------------------------------------------- |
+| `convert(value, from, to)`   | Convert a bare number between units.                            |
+| `isCompatible(unitA, unitB)` | Check if two units share a dimension.                           |
+| `unitDimension(unit)`        | Get the dimension name for a unit.                              |
+| `unitSymbol(unit)`           | Get the symbol for a unit.                                      |
+| `isValidUnit(unit)`          | Check if a unit name is recognized.                             |
+| `listUnits()`                | Return all registered units as `{ name, symbol, dimension }[]`. |
+| `ffiVersion()`               | FFI ABI version number.                                         |
 
 ### `@siderust/qtty/units` — unit factories
 
@@ -180,23 +180,23 @@ Every named export is a `UnitFactory`: call it with a number to get a `Quantity`
 ```ts
 import { Degrees, Kilometers, Kilograms, Watts } from '@siderust/qtty/units';
 
-Degrees(180)    // Quantity(180, 'Degree')
-Kilometers(2.5) // Quantity(2.5, 'Kilometer')
-Kilograms(70)   // Quantity(70,  'Kilogram')
-Watts(1500)     // Quantity(1500, 'Watt')
+Degrees(180); // Quantity(180, 'Degree')
+Kilometers(2.5); // Quantity(2.5, 'Kilometer')
+Kilograms(70); // Quantity(70,  'Kilogram')
+Watts(1500); // Quantity(1500, 'Watt')
 ```
 
 Use `unit(name)` for dynamic lookup and `units` for the full registry.
 
 ### Supported dimensions and units
 
-| Dimension | Example units |
-|-----------|---------------|
+| Dimension  | Example units                                                              |
+| ---------- | -------------------------------------------------------------------------- |
 | **Length** | `Meter`, `Kilometer`, `Mile`, `AstronomicalUnit`, `Parsec`, `LightYear`, … |
-| **Time** | `Second`, `Minute`, `Hour`, `Day`, `Year`, `JulianCentury`, … |
-| **Angle** | `Radian`, `Degree`, `Arcminute`, `Arcsecond`, `HourAngle`, … |
-| **Mass** | `Gram`, `Kilogram`, `Pound`, `SolarMass`, `AtomicMassUnit`, … |
-| **Power** | `Watt`, `Kilowatt`, `Megawatt`, `SolarLuminosity`, … |
+| **Time**   | `Second`, `Minute`, `Hour`, `Day`, `Year`, `JulianCentury`, …              |
+| **Angle**  | `Radian`, `Degree`, `Arcminute`, `Arcsecond`, `HourAngle`, …               |
+| **Mass**   | `Gram`, `Kilogram`, `Pound`, `SolarMass`, `AtomicMassUnit`, …              |
+| **Power**  | `Watt`, `Kilowatt`, `Megawatt`, `SolarLuminosity`, …                       |
 
 Use `isValidUnit(name)` to check at runtime, or see the
 [units.csv](../qtty/qtty-ffi/units.csv) for the full list.
@@ -205,12 +205,12 @@ Use `isValidUnit(name)` to check at runtime, or see the
 
 Runnable examples are in the [examples/](examples/) folder:
 
-| File | What it shows |
-|------|---------------|
-| [quickstart.mjs](examples/quickstart.mjs) | Construction, conversion, `convert()`, `isCompatible()` |
-| [unit_factories.mjs](examples/unit_factories.mjs) | Factory-style construction, metadata, dynamic `unit()`/`units` |
-| [arithmetic.mjs](examples/arithmetic.mjs) | `.add()`, `.sub()`, `.mul()`, `.div()`, velocity with `DerivedQuantity` |
-| [astronomy.mjs](examples/astronomy.mjs) | Parsec/ly/AU scales, angular measures, solar units |
+| File                                              | What it shows                                                           |
+| ------------------------------------------------- | ----------------------------------------------------------------------- |
+| [quickstart.mjs](examples/quickstart.mjs)         | Construction, conversion, `convert()`, `isCompatible()`                 |
+| [unit_factories.mjs](examples/unit_factories.mjs) | Factory-style construction, metadata, dynamic `unit()`/`units`          |
+| [arithmetic.mjs](examples/arithmetic.mjs)         | `.add()`, `.sub()`, `.mul()`, `.div()`, velocity with `DerivedQuantity` |
+| [astronomy.mjs](examples/astronomy.mjs)           | Parsec/ly/AU scales, angular measures, solar units                      |
 
 ```bash
 node examples/quickstart.mjs
