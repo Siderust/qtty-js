@@ -310,7 +310,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { Quantity, DerivedQuantity, convert, isCompatible, unitDimension, unitSymbol, isValidUnit, ffiVersion } = nativeBinding
+const { Quantity, DerivedQuantity, convert, isCompatible, unitDimension, unitSymbol, isValidUnit, ffiVersion, listUnits } = nativeBinding
 
 module.exports.Quantity = Quantity
 module.exports.DerivedQuantity = DerivedQuantity
@@ -320,3 +320,4 @@ module.exports.unitDimension = unitDimension
 module.exports.unitSymbol = unitSymbol
 module.exports.isValidUnit = isValidUnit
 module.exports.ffiVersion = ffiVersion
+module.exports.listUnits = listUnits

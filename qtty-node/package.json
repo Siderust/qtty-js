@@ -4,10 +4,22 @@
   "description": "Strongly-typed physical quantities and unit conversions for Node.js, powered by Rust",
   "main": "index.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./units": {
+      "require": "./units.js",
+      "import": "./units.js",
+      "types": "./units.d.ts"
+    }
+  },
   "scripts": {
     "build": "napi build --release --platform",
     "build:debug": "napi build --platform",
-    "test": "node --test __test__/index.test.mjs",
+    "test": "node --test __test__/*.test.mjs",
     "prepublishOnly": "napi build --release --platform"
   },
   "napi": {
@@ -19,6 +31,9 @@
   "files": [
     "index.js",
     "index.d.ts",
+    "units.js",
+    "units.d.ts",
+    "examples/",
     "README.md"
   ],
   "keywords": [

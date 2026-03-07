@@ -47,16 +47,81 @@ console.log(kmh.value); // 360
 const hours = convert(7200, 'Second', 'Hour'); // 2
 ```
 
+## Unit factories — arithmetic-style construction
+
+Import named unit factory functions to create quantities without typing
+`new Quantity(…)`. Each factory is callable and reads like an expression:
+
+```js
+// Both lines produce the same Quantity:
+const a = Degrees(180);                     // factory style
+const b = new Quantity(180, 'Degree');      // class style
+
+// Works for any dimension:
+const dist = Kilometers(1000);
+const mass = Kilograms(70);
+const time = Hours(24);
+const power = Kilowatts(3.5);
+```
+
+Because JavaScript has no operator overloading, `180 * Degrees` cannot
+return a `Quantity` — write `Degrees(180)` instead.
+
+```js
+import {
+  Meters, Kilometers, Miles, AstronomicalUnits, LightYears, Parsecs,
+  Seconds, Minutes, Hours, Days, Years, JulianYears,
+  Degrees, Radians, Arcseconds,
+  Grams, Kilograms, SolarMasses,
+  Watts, Kilowatts, SolarLuminosities,
+} from '@siderust/qtty/units';
+
+// Factory metadata
+console.log(Meters.unit);      // 'Meter'
+console.log(Meters.symbol);    // 'm'
+console.log(Meters.dimension); // 'Length'
+
+// Convert straight from the factory call
+const rad = Degrees(180).to('Radian');   // π rad
+const pc  = LightYears(1).to('Parsec'); // 0.3066 pc
+
+// Chain arithmetic
+const total = Kilometers(1).add(Meters(500));  // 1.5 km
+const speed = Meters(100).div(1).to('Kilometer').mul(3600); // naive example
+
+// Dynamic lookup by name
+import { unit, units } from '@siderust/qtty/units';
+const factory = unit('SolarMass');  // UnitFactory | undefined
+const sun = factory!(1);            // Quantity { value: 1, unit: 'SolarMass' }
+
+// All factories as a record
+const lengthNames = Object.values(units)
+  .filter(f => f.dimension === 'Length')
+  .map(f => f.unit);
+```
+
 ## TypeScript
 
 Full type information is provided out of the box:
 
 ```ts
 import { Quantity, convert, isCompatible } from '@siderust/qtty';
+import { Degrees, Kilometers, Hours, type UnitFactory } from '@siderust/qtty/units';
 
+// Using the class
 const q: Quantity = new Quantity(180, 'Degree');
 const rad: Quantity = q.to('Radian');
 console.log(rad.value); // 3.141592653589793
+
+// Using factories
+const angle: Quantity = Degrees(180);   // identical result
+const speed: Quantity = Kilometers(100).div(Hours(1).value);
+
+// Type of a factory
+const f: UnitFactory = Degrees;
+console.log(f.unit);      // 'Degree'
+console.log(f.symbol);    // '°'
+console.log(f.dimension); // 'Angle'
 
 const ok: boolean = isCompatible('Meter', 'Kilometer'); // true
 ```
@@ -105,7 +170,23 @@ const ok: boolean = isCompatible('Meter', 'Kilometer'); // true
 | `unitDimension(unit)` | Get the dimension name for a unit. |
 | `unitSymbol(unit)` | Get the symbol for a unit. |
 | `isValidUnit(unit)` | Check if a unit name is recognized. |
+| `listUnits()` | Return all registered units as `{ name, symbol, dimension }[]`. |
 | `ffiVersion()` | FFI ABI version number. |
+
+### `@siderust/qtty/units` — unit factories
+
+Every named export is a `UnitFactory`: call it with a number to get a `Quantity`.
+
+```ts
+import { Degrees, Kilometers, Kilograms, Watts } from '@siderust/qtty/units';
+
+Degrees(180)    // Quantity(180, 'Degree')
+Kilometers(2.5) // Quantity(2.5, 'Kilometer')
+Kilograms(70)   // Quantity(70,  'Kilogram')
+Watts(1500)     // Quantity(1500, 'Watt')
+```
+
+Use `unit(name)` for dynamic lookup and `units` for the full registry.
 
 ### Supported dimensions and units
 
@@ -119,6 +200,24 @@ const ok: boolean = isCompatible('Meter', 'Kilometer'); // true
 
 Use `isValidUnit(name)` to check at runtime, or see the
 [units.csv](../qtty/qtty-ffi/units.csv) for the full list.
+
+## Examples
+
+Runnable examples are in the [examples/](examples/) folder:
+
+| File | What it shows |
+|------|---------------|
+| [quickstart.mjs](examples/quickstart.mjs) | Construction, conversion, `convert()`, `isCompatible()` |
+| [unit_factories.mjs](examples/unit_factories.mjs) | Factory-style construction, metadata, dynamic `unit()`/`units` |
+| [arithmetic.mjs](examples/arithmetic.mjs) | `.add()`, `.sub()`, `.mul()`, `.div()`, velocity with `DerivedQuantity` |
+| [astronomy.mjs](examples/astronomy.mjs) | Parsec/ly/AU scales, angular measures, solar units |
+
+```bash
+node examples/quickstart.mjs
+node examples/unit_factories.mjs
+node examples/arithmetic.mjs
+node examples/astronomy.mjs
+```
 
 ## Building from source
 

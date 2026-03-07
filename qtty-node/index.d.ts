@@ -73,6 +73,28 @@ export declare function unitSymbol(unit: string): string
 export declare function isValidUnit(unit: string): boolean
 /** Returns the FFI ABI version number. */
 export declare function ffiVersion(): number
+/** Metadata about a single unit returned by `listUnits`. */
+export interface UnitInfo {
+  /** Unit name, e.g. `"Meter"`. */
+  name: string
+  /** Unit symbol, e.g. `"m"`. */
+  symbol: string
+  /** Dimension name, e.g. `"Length"`. */
+  dimension: string
+}
+/**
+ * Returns an array of all registered units with their name, symbol, and dimension.
+ *
+ * This is useful for building dynamic UIs, documenting available units,
+ * or generating unit factory collections at runtime.
+ *
+ * ```js
+ * const { listUnits } = require('@siderust/qtty');
+ * const units = listUnits();
+ * units.filter(u => u.dimension === 'Length').map(u => u.name);
+ * ```
+ */
+export declare function listUnits(): Array<UnitInfo>
 /**
  * A physical quantity: a numeric value paired with a unit.
  *

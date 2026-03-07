@@ -496,3 +496,63 @@ pub fn is_valid_unit(unit: String) -> bool {
 pub fn ffi_version() -> u32 {
     qtty_ffi::qtty_ffi_version()
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Unit enumeration
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Metadata about a single unit returned by `listUnits`.
+#[napi(object)]
+pub struct UnitInfo {
+    /// Unit name, e.g. `"Meter"`.
+    pub name: String,
+    /// Unit symbol, e.g. `"m"`.
+    pub symbol: String,
+    /// Dimension name, e.g. `"Length"`.
+    pub dimension: String,
+}
+
+/// Returns an array of all registered units with their name, symbol, and dimension.
+///
+/// This is useful for building dynamic UIs, documenting available units,
+/// or generating unit factory collections at runtime.
+///
+/// ```js
+/// const { listUnits } = require('@siderust/qtty');
+/// const units = listUnits();
+/// units.filter(u => u.dimension === 'Length').map(u => u.name);
+/// ```
+#[napi]
+pub fn list_units() -> Vec<UnitInfo> {
+    // Discriminant ranges from units.csv comments:
+    // Length:  10000..=15009, 11000..=11008
+    // Time:    20000..=23002
+    // Angle:   30000..=32002
+    // Mass:    40000..=42003
+    // Power:   50000..=51003
+    //
+    // We iterate known ranges and collect valid IDs.
+    let ranges: &[(u32, u32)] = &[
+        (10000, 16000),
+        (20000, 24000),
+        (30000, 33000),
+        (40000, 43000),
+        (50000, 52000),
+    ];
+
+    let mut result = Vec::new();
+    for &(start, end) in ranges {
+        for discriminant in start..end {
+            if let Some(id) = UnitId::from_u32(discriminant) {
+                if let Some(meta) = registry::meta(id) {
+                    result.push(UnitInfo {
+                        name: unit_to_string(id),
+                        symbol: id.symbol().to_string(),
+                        dimension: dimension_to_string(meta.dim).to_string(),
+                    });
+                }
+            }
+        }
+    }
+    result
+}
