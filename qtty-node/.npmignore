@@ -1,0 +1,9 @@
+target/
+src/
+Cargo.toml
+Cargo.lock
+build.rs
+__test__/
+.cargo/
+*.node
+node_modules/

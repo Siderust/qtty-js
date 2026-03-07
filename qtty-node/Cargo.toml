@@ -1,0 +1,25 @@
+[package]
+name = "qtty-node"
+version = "0.4.0"
+edition = "2021"
+authors = ["VPRamon <vallespuigramon@gmail.com>"]
+license = "AGPL-3.0"
+repository = "https://github.com/Siderust/qtty"
+description = "Node.js native bindings for qtty physical quantities and unit conversions"
+readme = "README.md"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+qtty-ffi = { path = "../qtty/qtty-ffi" }
+serde_json = "1.0"
+napi = { version = "2", features = ["napi6"] }
+napi-derive = "2"
+
+[build-dependencies]
+napi-build = "2"
+
+[profile.release]
+lto = true
+strip = "symbols"
