@@ -5,12 +5,18 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  Meters, Kilometers, Miles, Inches, AstronomicalUnits, LightYears, Parsecs,
-  Seconds, Minutes, Hours, Days, Years, JulianYears,
-  Degrees, Radians, Arcseconds, Arcminutes, HourAngles,
-  Grams, Kilograms, Pounds, SolarMasses,
-  Watts, Kilowatts, SolarLuminosities,
-  unit, units,
+  Meters,
+  Kilometers,
+  LightYears,
+  Parsecs,
+  Seconds,
+  Hours,
+  Degrees,
+  Kilograms,
+  SolarMasses,
+  Watts,
+  unit,
+  units,
 } from '../units.js';
 
 describe('Unit factories', () => {
@@ -112,7 +118,7 @@ describe('unit() dynamic lookup', () => {
 
 describe('units index', () => {
   it('contains entries for all five dimensions', () => {
-    const dims = new Set(Object.values(units).map(f => f.dimension));
+    const dims = new Set(Object.values(units).map((f) => f.dimension));
     assert.ok(dims.has('Length'));
     assert.ok(dims.has('Time'));
     assert.ok(dims.has('Angle'));

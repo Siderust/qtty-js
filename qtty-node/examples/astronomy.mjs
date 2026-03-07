@@ -7,12 +7,19 @@
  */
 
 import {
-  AstronomicalUnits, LightYears, Parsecs, Kiloparsecs, Megaparsecs, Gigaparsecs,
-  Kilometers, Meters,
-  Degrees, Radians, Arcseconds, MilliArcseconds, MicroArcseconds, HourAngles,
-  Seconds, Days, Years, JulianYears, JulianCenturies, SiderealYears,
-  SolarMasses, Kilograms,
-  SolarLuminosities, Watts,
+  AstronomicalUnits,
+  LightYears,
+  Parsecs,
+  Kiloparsecs,
+  Gigaparsecs,
+  Degrees,
+  MilliArcseconds,
+  HourAngles,
+  JulianYears,
+  SiderealYears,
+  SolarMasses,
+  Kilograms,
+  SolarLuminosities,
 } from '../units.js';
 
 console.log('─── Distance scales ────────────────────────────────────────────────');
@@ -27,7 +34,7 @@ console.log(`  1 ly = ${oneLY.to('AstronomicalUnit').format(2)}`);
 console.log(`  1 ly = ${oneLY.to('Parsec').format(6)}`);
 
 const onePc = Parsecs(1);
-console.log(`  1 pc = ${onePc.to('LightYear').format(4)}`);  // 3.2616 ly
+console.log(`  1 pc = ${onePc.to('LightYear').format(4)}`); // 3.2616 ly
 console.log(`  1 pc = ${onePc.to('AstronomicalUnit').value.toExponential(4)} AU`);
 
 // Cosmological distances
@@ -54,7 +61,7 @@ console.log(`\n  Proxima Centauri parallax: ${proxParallax} = ${proxParallaxArcs
 console.log(`  Distance: ${proxDistPc.format(4)} = ${proxDistPc.to('LightYear').format(4)}`);
 
 // Hour angles (right ascension)
-const ra = HourAngles(6.75);   // RA of Betelgeuse
+const ra = HourAngles(6.75); // RA of Betelgeuse
 console.log(`\n  Betelgeuse RA: ${ra} = ${ra.to('Degree').format(4)}`);
 
 console.log('\n─── Time scales ─────────────────────────────────────────────────────');
