@@ -1,0 +1,45 @@
+{
+  "name": "@siderust/qtty-web",
+  "version": "1.0.0",
+  "description": "Strongly-typed physical quantities and unit conversions for the browser — powered by Rust + WebAssembly",
+  "type": "module",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir pkg --release --scope siderust",
+    "build:dev": "wasm-pack build --target web --out-dir pkg --dev --scope siderust",
+    "build:bundler": "wasm-pack build --target bundler --out-dir pkg --release --scope siderust",
+    "clean": "rm -rf pkg/"
+  },
+  "files": [
+    "pkg/qtty_web_bg.wasm",
+    "pkg/qtty_web.js",
+    "pkg/qtty_web.d.ts",
+    "lib/",
+    "index.js",
+    "index.d.ts",
+    "README.md"
+  ],
+  "keywords": [
+    "quantities",
+    "units",
+    "conversion",
+    "physics",
+    "science",
+    "wasm",
+    "webassembly",
+    "browser",
+    "rust"
+  ],
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Siderust/qtty"
+  }
+}

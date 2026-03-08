@@ -29,7 +29,8 @@
 
 'use strict';
 
-const { Quantity, listUnits } = require('./index.js');
+const { Quantity } = require('./lib/Quantity.js');
+const { listUnits } = require('./lib/backend.js');
 
 /**
  * Creates a unit factory function for the given unit name.
@@ -183,6 +184,23 @@ exports.unit = (name) => byName[name];
  * @type {Readonly<Record<string, UnitFactory>>}
  */
 exports.units = Object.freeze({ ...byName });
+
+/**
+ * Const map of all registered unit names.
+ *
+ * Use instead of raw string literals to get IDE autocomplete and avoid typos:
+ *
+ * ```js
+ * import { Unit } from '@siderust/qtty/units';
+ *
+ * const d  = new Quantity(1000, Unit.Meter);
+ * const km = d.to(Unit.Kilometer);
+ * convert(1, Unit.Meter, Unit.Kilometer);
+ * ```
+ *
+ * @type {Readonly<Record<string, string>>}
+ */
+exports.Unit = Object.freeze(Object.fromEntries(_all.map((u) => [u.name, u.name])));
 
 /**
  * @typedef {object} UnitFactory
