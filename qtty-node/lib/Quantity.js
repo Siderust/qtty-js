@@ -79,7 +79,7 @@ class Quantity {
   add(other) {
     if (!this.compatible(other)) {
       throw new Error(
-        `Cannot add quantities with different dimensions: ${this._dimension} vs ${other._dimension}`
+        `Cannot add quantities with different dimensions: ${this._dimension} vs ${other._dimension}`,
       );
     }
     const otherInMyUnit = backend.convert(other._value, other._unit, this._unit);
@@ -94,7 +94,7 @@ class Quantity {
   sub(other) {
     if (!this.compatible(other)) {
       throw new Error(
-        `Cannot subtract quantities with different dimensions: ${this._dimension} vs ${other._dimension}`
+        `Cannot subtract quantities with different dimensions: ${this._dimension} vs ${other._dimension}`,
       );
     }
     const otherInMyUnit = backend.convert(other._value, other._unit, this._unit);
@@ -131,9 +131,7 @@ class Quantity {
    */
   format(precision) {
     const v =
-      precision != null && precision >= 0
-        ? this._value.toFixed(precision)
-        : String(this._value);
+      precision != null && precision >= 0 ? this._value.toFixed(precision) : String(this._value);
     return `${v} ${this._symbol}`;
   }
 

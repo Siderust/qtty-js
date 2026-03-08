@@ -200,7 +200,7 @@ exports.units = Object.freeze({ ...byName });
  *
  * @type {Readonly<Record<string, string>>}
  */
-exports.Unit = Object.freeze(Object.fromEntries(_all.map(u => [u.name, u.name])));
+exports.Unit = Object.freeze(Object.fromEntries(_all.map((u) => [u.name, u.name])));
 
 /**
  * @typedef {object} UnitFactory

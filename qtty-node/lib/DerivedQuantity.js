@@ -65,7 +65,7 @@ class DerivedQuantity {
     // v_new = v_old × (numFactor / denFactor)
     const numFactor = backend.convert(1, this._numerator, numerator);
     const denFactor = backend.convert(1, this._denominator, denominator);
-    return new DerivedQuantity(this._value * numFactor / denFactor, numerator, denominator);
+    return new DerivedQuantity((this._value * numFactor) / denFactor, numerator, denominator);
   }
 
   /**
@@ -98,9 +98,7 @@ class DerivedQuantity {
    */
   format(precision) {
     const v =
-      precision != null && precision >= 0
-        ? this._value.toFixed(precision)
-        : String(this._value);
+      precision != null && precision >= 0 ? this._value.toFixed(precision) : String(this._value);
     return `${v} ${this.symbol}`;
   }
 
