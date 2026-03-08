@@ -1,6 +1,6 @@
 {
   "name": "@siderust/qtty-web",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Strongly-typed physical quantities and unit conversions for the browser — powered by Rust + WebAssembly",
   "type": "module",
   "module": "index.js",

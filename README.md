@@ -29,7 +29,7 @@ qtty-js/
 └── scripts/      CI helpers for the Node package
 ```
 
-## What ships in 1.0.0
+## What ships in 0.1.0
 
 - A Node package with `Quantity`, `DerivedQuantity`, conversion helpers,
   compatibility checks, JSON-friendly serialization helpers, and a typed `Unit`
