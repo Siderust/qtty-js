@@ -1,0 +1,21 @@
+# Node / npm
+node_modules/
+/package-lock.json
+npm-debug.log*
+
+# Rust / native build outputs
+target/
+debug/
+**/*.pdb
+**/*.rs.bk
+
+# Workspace package artifacts
+/qtty-node/node_modules/
+/qtty-node/coverage/
+/qtty-node/target/
+/qtty-web/pkg/
+/qtty-web/target/
+
+# Local tooling
+**/mutants.out*/
+.DS_Store
