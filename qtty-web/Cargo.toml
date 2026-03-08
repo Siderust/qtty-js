@@ -1,0 +1,21 @@
+[package]
+name = "qtty-web"
+version = "1.0.0"
+edition = "2021"
+authors = ["VPRamon <vallespuigramon@gmail.com>"]
+license = "AGPL-3.0"
+repository = "https://github.com/Siderust/qtty"
+description = "Browser/WASM bindings for qtty — physical quantities and unit conversions in the browser"
+readme = "README.md"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+qtty-ffi = { path = "../qtty/qtty-ffi" }
+serde_json = "1.0"
+wasm-bindgen = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.6"
+js-sys = "0.3"
+console_error_panic_hook = "0.1"
