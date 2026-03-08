@@ -12,8 +12,8 @@ submodule that provides the canonical conversion registry and unit model.
 
 | Package | Target | Status | Notes |
 | --- | --- | --- | --- |
-| [`@siderust/qtty`](./qtty-node/README.md) | Node.js | `1.0.0` | Native addon built with `napi-rs`; includes `@siderust/qtty/units` factories. |
-| `@siderust/qtty-web` | Browsers / bundlers | `1.0.0` | WebAssembly build with `wasm-bindgen`; requires `await init()` before use. |
+| [`@siderust/qtty`](./qtty-node/README.md) | Node.js | `0.1.0` | Native addon built with `napi-rs`; includes `@siderust/qtty/units` factories. |
+| `@siderust/qtty-web` | Browsers / bundlers | `0.1.0` | WebAssembly build with `wasm-bindgen`; requires `await init()` before use. |
 
 The Rust crates under `qtty-node/` and `qtty-web/` are transport layers only.
 All unit metadata and conversion semantics come from the [`qtty`](./qtty)
@@ -114,7 +114,7 @@ wasm-pack build --target web --out-dir pkg --release --scope siderust
 
 ## Versioning notes
 
-The npm packages in this repository start at `1.0.0`, while the Rust transport
+The npm packages in this repository start at `0.1.0`, while the Rust transport
 crate inside [`qtty-node`](./qtty-node/Cargo.toml) still tracks the native layer
 version (`0.4.0`). That is intentional: the JavaScript public release line and
 the internal Rust crate line are versioned independently.
