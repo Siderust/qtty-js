@@ -1,6 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type { UnitName } from './units.js'
+export { Unit } from './units.js'
+
 /** Plain JSON-serializable representation of a quantity. */
 export interface QuantityJson {
   value: number

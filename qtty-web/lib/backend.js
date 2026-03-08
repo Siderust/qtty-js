@@ -60,3 +60,21 @@ export function ffiVersion() {
   ensureInit();
   return wasm.ffiVersion();
 }
+
+/**
+ * Const map of all registered unit names.  Available after `init()`.
+ * `Unit.Meter === 'Meter'` — every key equals its own name.
+ * @type {Readonly<{[key: string]: string}>}
+ */
+export const Unit = new Proxy(Object.freeze({}), {
+  get(_, prop) {
+    if (typeof prop !== 'string') return undefined;
+    ensureInit();
+    return prop;
+  },
+  has(_, prop) {
+    if (typeof prop !== 'string') return false;
+    ensureInit();
+    return wasm.isValidUnit(prop);
+  },
+});

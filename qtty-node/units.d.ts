@@ -126,3 +126,61 @@ export declare function unit(name: string): UnitFactory | undefined;
  * All unit factories as a read-only record indexed by unit name.
  */
 export declare const units: Readonly<Record<string, UnitFactory>>;
+
+// ── Unit name enum ────────────────────────────────────────────────────────────
+
+/** Union of every registered unit name. Use with `Unit` for type-safe lookups. */
+export type UnitName =
+  // Length
+  | 'PlanckLength' | 'Yoctometer' | 'Zeptometer' | 'Attometer' | 'Femtometer'
+  | 'Picometer' | 'Nanometer' | 'Micrometer' | 'Millimeter' | 'Centimeter'
+  | 'Decimeter' | 'Meter' | 'Decameter' | 'Hectometer' | 'Kilometer'
+  | 'Megameter' | 'Gigameter' | 'Terameter' | 'Petameter' | 'Exameter'
+  | 'Zettameter' | 'Yottameter' | 'BohrRadius' | 'ClassicalElectronRadius'
+  | 'ElectronReducedComptonWavelength' | 'AstronomicalUnit' | 'LightYear'
+  | 'Parsec' | 'Kiloparsec' | 'Megaparsec' | 'Gigaparsec'
+  | 'Inch' | 'Foot' | 'Yard' | 'Mile' | 'Link' | 'Fathom' | 'Rod' | 'Chain'
+  | 'NauticalMile' | 'NominalLunarRadius' | 'NominalLunarDistance'
+  | 'NominalEarthPolarRadius' | 'NominalEarthRadius' | 'NominalEarthEquatorialRadius'
+  | 'EarthMeridionalCircumference' | 'EarthEquatorialCircumference'
+  | 'NominalJupiterRadius' | 'NominalSolarRadius' | 'NominalSolarDiameter'
+  // Time
+  | 'Attosecond' | 'Femtosecond' | 'Picosecond' | 'Nanosecond' | 'Microsecond'
+  | 'Millisecond' | 'Centisecond' | 'Decisecond' | 'Second' | 'Decasecond'
+  | 'Hectosecond' | 'Kilosecond' | 'Megasecond' | 'Gigasecond' | 'Terasecond'
+  | 'Minute' | 'Hour' | 'Day' | 'Week' | 'Fortnight' | 'Year' | 'Decade'
+  | 'Century' | 'Millennium' | 'JulianYear' | 'JulianCentury'
+  | 'SiderealDay' | 'SynodicMonth' | 'SiderealYear'
+  // Angle
+  | 'Milliradian' | 'Radian' | 'MicroArcsecond' | 'MilliArcsecond'
+  | 'Arcsecond' | 'Arcminute' | 'Degree' | 'Gradian' | 'Turn' | 'HourAngle'
+  // Mass
+  | 'Yoctogram' | 'Zeptogram' | 'Attogram' | 'Femtogram' | 'Picogram'
+  | 'Nanogram' | 'Microgram' | 'Milligram' | 'Centigram' | 'Decigram'
+  | 'Gram' | 'Decagram' | 'Hectogram' | 'Kilogram' | 'Megagram' | 'Gigagram'
+  | 'Teragram' | 'Petagram' | 'Exagram' | 'Zettagram' | 'Yottagram'
+  | 'Grain' | 'Ounce' | 'Pound' | 'Stone' | 'ShortTon' | 'LongTon'
+  | 'Carat' | 'Tonne' | 'AtomicMassUnit' | 'SolarMass'
+  // Power
+  | 'Yoctowatt' | 'Zeptowatt' | 'Attowatt' | 'Femtowatt' | 'Picowatt'
+  | 'Nanowatt' | 'Microwatt' | 'Milliwatt' | 'Deciwatt' | 'Watt' | 'Decawatt'
+  | 'Hectowatt' | 'Kilowatt' | 'Megawatt' | 'Gigawatt' | 'Terawatt' | 'Petawatt'
+  | 'Exawatt' | 'Zettawatt' | 'Yottawatt'
+  | 'ErgPerSecond' | 'HorsepowerMetric' | 'HorsepowerElectric' | 'SolarLuminosity';
+
+/**
+ * Const map of all registered unit names.
+ *
+ * Use instead of raw string literals to get IDE autocomplete and avoid typos:
+ *
+ * ```ts
+ * import { Unit, Quantity } from '@siderust/qtty';
+ *
+ * const d  = new Quantity(1000, Unit.Meter);
+ * const km = d.to(Unit.Kilometer);
+ * convert(1, Unit.Meter, Unit.Kilometer);
+ * ```
+ *
+ * Each key is a string literal type, so `Unit.Meter` has type `'Meter'`.
+ */
+export declare const Unit: { readonly [K in UnitName]: K };

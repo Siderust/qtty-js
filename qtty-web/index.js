@@ -6,7 +6,7 @@
  * @module @siderust/qtty-web
  */
 
-export { init } from './lib/backend.js';
+export { init, Unit } from './lib/backend.js';
 export { Quantity } from './lib/Quantity.js';
 export { DerivedQuantity } from './lib/DerivedQuantity.js';
 export {

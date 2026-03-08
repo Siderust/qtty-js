@@ -16,8 +16,11 @@ const { DerivedQuantity } = require('./lib/DerivedQuantity.js');
 // Free functions — pass through from the native backend.
 const backend = require('./lib/backend.js');
 
+const { Unit } = require('./units.js');
+
 module.exports.Quantity = Quantity;
 module.exports.DerivedQuantity = DerivedQuantity;
+module.exports.Unit = Unit;
 module.exports.convert = backend.convert;
 module.exports.isCompatible = backend.isCompatible;
 module.exports.unitDimension = backend.unitDimension;

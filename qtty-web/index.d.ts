@@ -83,3 +83,58 @@ export function unitSymbol(unit: string): string;
 export function isValidUnit(unit: string): boolean;
 export function ffiVersion(): number;
 export function listUnits(): UnitInfo[];
+
+// ─── Unit const map ──────────────────────────────────────────────────────────
+
+/** Union of every registered unit name. */
+export type UnitName =
+  // Length
+  | 'PlanckLength' | 'Yoctometer' | 'Zeptometer' | 'Attometer' | 'Femtometer'
+  | 'Picometer' | 'Nanometer' | 'Micrometer' | 'Millimeter' | 'Centimeter'
+  | 'Decimeter' | 'Meter' | 'Decameter' | 'Hectometer' | 'Kilometer'
+  | 'Megameter' | 'Gigameter' | 'Terameter' | 'Petameter' | 'Exameter'
+  | 'Zettameter' | 'Yottameter' | 'BohrRadius' | 'ClassicalElectronRadius'
+  | 'ElectronReducedComptonWavelength' | 'AstronomicalUnit' | 'LightYear'
+  | 'Parsec' | 'Kiloparsec' | 'Megaparsec' | 'Gigaparsec'
+  | 'Inch' | 'Foot' | 'Yard' | 'Mile' | 'Link' | 'Fathom' | 'Rod' | 'Chain'
+  | 'NauticalMile' | 'NominalLunarRadius' | 'NominalLunarDistance'
+  | 'NominalEarthPolarRadius' | 'NominalEarthRadius' | 'NominalEarthEquatorialRadius'
+  | 'EarthMeridionalCircumference' | 'EarthEquatorialCircumference'
+  | 'NominalJupiterRadius' | 'NominalSolarRadius' | 'NominalSolarDiameter'
+  // Time
+  | 'Attosecond' | 'Femtosecond' | 'Picosecond' | 'Nanosecond' | 'Microsecond'
+  | 'Millisecond' | 'Centisecond' | 'Decisecond' | 'Second' | 'Decasecond'
+  | 'Hectosecond' | 'Kilosecond' | 'Megasecond' | 'Gigasecond' | 'Terasecond'
+  | 'Minute' | 'Hour' | 'Day' | 'Week' | 'Fortnight' | 'Year' | 'Decade'
+  | 'Century' | 'Millennium' | 'JulianYear' | 'JulianCentury'
+  | 'SiderealDay' | 'SynodicMonth' | 'SiderealYear'
+  // Angle
+  | 'Milliradian' | 'Radian' | 'MicroArcsecond' | 'MilliArcsecond'
+  | 'Arcsecond' | 'Arcminute' | 'Degree' | 'Gradian' | 'Turn' | 'HourAngle'
+  // Mass
+  | 'Yoctogram' | 'Zeptogram' | 'Attogram' | 'Femtogram' | 'Picogram'
+  | 'Nanogram' | 'Microgram' | 'Milligram' | 'Centigram' | 'Decigram'
+  | 'Gram' | 'Decagram' | 'Hectogram' | 'Kilogram' | 'Megagram' | 'Gigagram'
+  | 'Teragram' | 'Petagram' | 'Exagram' | 'Zettagram' | 'Yottagram'
+  | 'Grain' | 'Ounce' | 'Pound' | 'Stone' | 'ShortTon' | 'LongTon'
+  | 'Carat' | 'Tonne' | 'AtomicMassUnit' | 'SolarMass'
+  // Power
+  | 'Yoctowatt' | 'Zeptowatt' | 'Attowatt' | 'Femtowatt' | 'Picowatt'
+  | 'Nanowatt' | 'Microwatt' | 'Milliwatt' | 'Deciwatt' | 'Watt' | 'Decawatt'
+  | 'Hectowatt' | 'Kilowatt' | 'Megawatt' | 'Gigawatt' | 'Terawatt' | 'Petawatt'
+  | 'Exawatt' | 'Zettawatt' | 'Yottawatt'
+  | 'ErgPerSecond' | 'HorsepowerMetric' | 'HorsepowerElectric' | 'SolarLuminosity';
+
+/**
+ * Const map of all registered unit names (available after `init()`).
+ *
+ * `Unit.Meter === 'Meter'` — each key equals its own name.
+ *
+ * ```ts
+ * import { init, Quantity, Unit } from '@siderust/qtty-web';
+ * await init();
+ * const d  = new Quantity(1000, Unit.Meter);
+ * const km = d.to(Unit.Kilometer);
+ * ```
+ */
+export declare const Unit: { readonly [K in UnitName]: K };
