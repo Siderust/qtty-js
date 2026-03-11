@@ -1,0 +1,20 @@
+{
+  "name": "qtty-js",
+  "version": "0.1.0",
+  "description": "Typesafe unit measurments",
+  "homepage": "https://github.com/Siderust/qtty-js#readme",
+  "bugs": {
+    "url": "https://github.com/Siderust/qtty-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siderust/qtty-js.git"
+  },
+  "license": "AGPL-3.0-or-later",
+  "author": "VPRamon",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
