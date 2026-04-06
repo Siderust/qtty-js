@@ -9,8 +9,7 @@ use napi_derive::napi;
 
 use qtty_ffi::registry;
 use qtty_ffi::{
-    DimensionId, QttyDerivedQuantity, QttyQuantity, UnitId, QTTY_ERR_INCOMPATIBLE_DIM,
-    QTTY_ERR_UNKNOWN_UNIT,
+    DimensionId, QttyDerivedQuantity, QttyQuantity, QttyStatus, UnitId,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -48,9 +47,9 @@ fn dimension_to_string(dim: DimensionId) -> &'static str {
 
 /// Convert an FFI error code into a napi `Error`.
 fn ffi_error(code: i32) -> Error {
-    if code == QTTY_ERR_UNKNOWN_UNIT {
+    if code == QttyStatus::UnknownUnit as i32 {
         Error::new(Status::InvalidArg, "Unknown or invalid unit")
-    } else if code == QTTY_ERR_INCOMPATIBLE_DIM {
+    } else if code == QttyStatus::IncompatibleDim as i32 {
         Error::new(
             Status::InvalidArg,
             "Incompatible dimensions: cannot convert between these units",

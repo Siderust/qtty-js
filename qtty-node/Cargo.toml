@@ -12,7 +12,7 @@ readme = "README.md"
 crate-type = ["cdylib"]
 
 [dependencies]
-qtty-ffi = { path = "../qtty/qtty-ffi" }
+qtty-ffi = { path = "../../../../rust/qtty/qtty-ffi" }
 serde_json = "1.0"
 napi = { version = "2", features = ["napi6"] }
 napi-derive = "2"
