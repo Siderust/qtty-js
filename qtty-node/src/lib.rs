@@ -8,9 +8,7 @@ use napi::bindgen_prelude::*;
 use napi_derive::napi;
 
 use qtty_ffi::registry;
-use qtty_ffi::{
-    DimensionId, QttyDerivedQuantity, QttyQuantity, QttyStatus, UnitId,
-};
+use qtty_ffi::{DimensionId, QttyDerivedQuantity, QttyQuantity, QttyStatus, UnitId};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers: UnitId ↔ string
@@ -45,17 +43,15 @@ fn dimension_to_string(dim: DimensionId) -> &'static str {
     }
 }
 
-/// Convert an FFI error code into a napi `Error`.
-fn ffi_error(code: i32) -> Error {
-    if code == QttyStatus::UnknownUnit as i32 {
-        Error::new(Status::InvalidArg, "Unknown or invalid unit")
-    } else if code == QttyStatus::IncompatibleDim as i32 {
-        Error::new(
+/// Convert an FFI status into a napi `Error`.
+fn ffi_error(status: QttyStatus) -> Error {
+    match status {
+        QttyStatus::UnknownUnit => Error::new(Status::InvalidArg, "Unknown or invalid unit"),
+        QttyStatus::IncompatibleDim => Error::new(
             Status::InvalidArg,
             "Incompatible dimensions: cannot convert between these units",
-        )
-    } else {
-        Error::new(Status::GenericFailure, "Internal conversion error")
+        ),
+        _ => Error::new(Status::GenericFailure, "Internal conversion error"),
     }
 }
 
